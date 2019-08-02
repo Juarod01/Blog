@@ -15,3 +15,6 @@ Comandos:
 * git status: ver el estado de la BD
 * git show: Muestra todos los cambios historicos hechos, con las lineas afectadas y quien las realizó.
 * git log <nombre_archivo>.txt: Muestra la historia del archivo.
+* git diff <sha1> <sha2>: compara las diferencias entre commits
+* git reset <sha> --hard: Volver al commit indicado y borra los commits que estan despues del indicado.
+* git reset <sha> --soft: Vuelve al commit indicado, pero en el staiging se mantienen los cambios actuales para un posterior commit.
