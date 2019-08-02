@@ -1,0 +1,17 @@
+Comandos:
+
+* git init: Empieza repositorio.
+
+* git config: Muestra todas las opciones para configurar Git.
+* git config --list: Puedes ver las configuraciones por defecto de git.
+* git config --list --show-origin: Muestra donde estan las configuraciones guardadas
+* git config --global user.name "David Rodriguez" : Cambias configuracion de usuario de Git.
+* git config --global user.email "jdavid.rodriguez.e@gmail.com"
+
+* git add <nombre_archivo>.txt: Alista archivo para enviar a DB del sistema de control de versiones.
+* git add -A (git add .): Alista todos los archivos para enviar a DB del sistema de control de versiones.
+* git rm -cached <nombre_archivo>: Retira el git add del archivo, sin eliminar el archivo en cuestion.
+* git commit -m "mensaje con observaciones de los cambios": Envia ultimos cambios del archivo al sistema de control de versiones, es buena practica ingresar mensaje.
+* git status: ver el estado de la BD
+* git show: Muestra todos los cambios historicos hechos, con las lineas afectadas y quien las realizó.
+* git log <nombre_archivo>.txt: Muestra la historia del archivo.
