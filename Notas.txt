@@ -8,13 +8,16 @@ Comandos:
 * git config --global user.name "David Rodriguez" : Cambias configuracion de usuario de Git.
 * git config --global user.email "jdavid.rodriguez.e@gmail.com"
 
-* git add <nombre_archivo>.txt: Alista archivo para enviar a DB del sistema de control de versiones.
+* git add <nombre_archivo>: Alista archivo para enviar a DB del sistema de control de versiones.
 * git add -A (git add .): Alista todos los archivos para enviar a DB del sistema de control de versiones.
 * git rm -cached <nombre_archivo>: Retira el git add del archivo, sin eliminar el archivo en cuestion.
 * git commit -m "mensaje con observaciones de los cambios": Envia ultimos cambios del archivo al sistema de control de versiones, es buena practica ingresar mensaje.
 * git status: ver el estado de la BD
 * git show: Muestra todos los cambios historicos hechos, con las lineas afectadas y quien las realizó.
-* git log <nombre_archivo>.txt: Muestra la historia del archivo.
+* git log <nombre_archivo>: Muestra la historia del archivo.
+* git log --stat: Muestra los cambios especificos que se hicieron despues del primer commit.
 * git diff <sha1> <sha2>: compara las diferencias entre commits
 * git reset <sha> --hard: Volver al commit indicado y borra los commits que estan despues del indicado.
 * git reset <sha> --soft: Vuelve al commit indicado, pero en el staiging se mantienen los cambios actuales para un posterior commit.
+* git  checkout <sha> <nombre_archivo>: Nos muestra como era ese archivo en ese commit, se debe tener cuidado ya que modifica el archivo a como estaba en ese commit, y queda pendiente de que confirmemos el commit para guardar en repositorio.
+* git  checkout master <nombre_archivo>: Nos deja el archivo a como estaba en el ultimo commit guardado en repositorio.
