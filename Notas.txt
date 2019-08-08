@@ -16,8 +16,14 @@ Comandos:
 * git show: Muestra todos los cambios historicos hechos, con las lineas afectadas y quien las realizó.
 * git log <nombre_archivo>: Muestra la historia del archivo.
 * git log --stat: Muestra los cambios especificos que se hicieron despues del primer commit.
+* git diff: Muestra los cambios que hay en staiging vs los cambios que aun no estan en staiging.
 * git diff <sha1> <sha2>: compara las diferencias entre commits
 * git reset <sha> --hard: Volver al commit indicado y borra los commits que estan despues del indicado.
 * git reset <sha> --soft: Vuelve al commit indicado, pero en el staiging se mantienen los cambios actuales para un posterior commit.
 * git  checkout <sha> <nombre_archivo>: Nos muestra como era ese archivo en ese commit, se debe tener cuidado ya que modifica el archivo a como estaba en ese commit, y queda pendiente de que confirmemos el commit para guardar en repositorio.
 * git  checkout master <nombre_archivo>: Nos deja el archivo a como estaba en el ultimo commit guardado en repositorio.
+
+* git clone <url repositorio remoto>: Trae archivos de GitHub (o GitLab), a nuestro repositorio local y directorio de trabajo (staiging queda sin modificaciones).
+* git push: Envia archivos guardados en nuestro repositorio local al repositorio remoto.
+* git fetch: Trae cambios que se hayan realizado en el repositorio remoto al repositorio local, pero no queda e el directorio de trabajo, para ello hay que fusionarlos utilizando git merge.
+* git pull: Trae cambios que se hayan realizado en el repositorio remoto al repositorio local y directorio de trabajo.
