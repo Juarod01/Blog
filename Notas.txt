@@ -27,3 +27,5 @@ Comandos:
 * git push: Envia archivos guardados en nuestro repositorio local al repositorio remoto.
 * git fetch: Trae cambios que se hayan realizado en el repositorio remoto al repositorio local, pero no queda e el directorio de trabajo, para ello hay que fusionarlos utilizando git merge.
 * git pull: Trae cambios que se hayan realizado en el repositorio remoto al repositorio local y directorio de trabajo.
+* git brach <nombre_rama>: Crea una nueva rama.
+* git checkout <nombre_rama>: Cambiamos de rama.
