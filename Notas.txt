@@ -1,0 +1,165 @@
+Comandos:
+
+* git init: Empieza repositorio.
+
+* git config: Muestra todas las opciones para configurar Git.
+* git config --list: Puedes ver las configuraciones por defecto de git.
+* git config --list --show-origin: Muestra donde estan las configuraciones guardadas
+* git config --global user.name "David Rodriguez" : Cambias configuracion de usuario de Git.
+* git config --global user.email "jdavid.rodriguez.e@gmail.com"
+
+* git add <nombre_archivo>: Alista archivo para enviar a DB del sistema de control de versiones.
+* git add -A (git add .): Alista todos los archivos para enviar a DB del sistema de control de versiones.
+* git rm -cached <nombre_archivo>: Retira el git add del archivo, sin eliminar el archivo en cuestion.
+* git commit -m "mensaje con observaciones de los cambios": Envia ultimos cambios del archivo al sistema de control de versiones, es buena practica ingresar mensaje.
+* git status: ver el estado de la BD
+* git show: Muestra todos los cambios historicos hechos, con las lineas afectadas y quien las realizó.
+* git log: Muestra todos los commits
+* git log --all: Muestra todos los commits,hay veces que no muestra todo solo con git log
+* git log --all --graph: Muestra todos los commits, incluyendo grafica de la historia de las ramas
+* git log --all --graph --decorate --oneline: Muestra todos los commits, incluyendo grafica de la historia de las ramas (mas comprimido)
+* git log <nombre_archivo>: Muestra la historia del archivo.
+* git log --stat: Muestra los cambios especificos que se hicieron despues del primer commit.
+* git diff: Muestra los cambios que hay en staiging vs los cambios que aun no estan en staiging.
+* git diff <Hash1> <Hash2>: compara las diferencias entre commits
+* git reset <Hash> --hard: Volver al commit indicado y borra los commits que estan despues del indicado.
+* git reset <Hash> --soft: Vuelve al commit indicado, pero en el staiging se mantienen los cambios actuales para un posterior commit.
+* git  checkout <Hash> <nombre_archivo>: Nos muestra como era ese archivo en ese commit, se debe tener cuidado ya que modifica el archivo a como estaba en ese commit, y queda pendiente de que confirmemos el commit para guardar en repositorio.
+* git  checkout master <nombre_archivo>: Nos deja el archivo a como estaba en el ultimo commit guardado en repositorio.
+
+* git clone <url repositorio remoto>: Trae archivos de GitHub (o GitLab), a nuestro repositorio local y directorio de trabajo (staiging queda sin modificaciones).
+* git push: Envia archivos guardados en nuestro repositorio local al repositorio remoto.
+* git fetch: Trae cambios que se hayan realizado en el repositorio remoto al repositorio local, pero no queda e el directorio de trabajo, para ello hay que fusionarlos utilizando git merge.
+* git pull: Trae cambios que se hayan realizado en el repositorio remoto al repositorio local y directorio de trabajo.
+
+RAMAS:
+  * git branch <nombre>: Crea una rama nueva.
+      -git branch: Muestra las ramas del repositorio local
+      -git branch -r: Muestra las ramas del repositorio remoto
+      -git branch -a: Muestra todas las ramas (local y remoto)
+  * git checkout <nombre_rama>: Para moverte a una rama diferente.
+  * git merge <nombre_rama>: Fusionamos ramas. 
+    OJO. 
+    - Cuando hagamos el merge tenemos que estar en la rama que va a quedar como principal.
+    - Lo que va a realizar, es fusionar los cambios registrados en el ultimo commit de cada rama utilizada.
+    - Debemos registrar un mensaje, ya que hacer un merge es hacer un commit nuevo.
+    - La otra rama sigue quedando igual como estaba, no se borra, lo que podemos hacer es actualizarla para que quede igual que la principal
+      para hacer eso, hacemos otro merge, desde esa rama apuntando a la principal.
+   * git show-branch: Nos muestra las ramas que existen con su historia
+   * git show-branch --all: Nos muestra las ramas que existen con su historia (mas información)
+GitHub
+
+1. Crear repositorio en GitHub.
+  UTILIZANDO HTTPS
+
+  2. Ir a "Clone y download", y usar la opción "Clone with HTTPS", copiamos la url
+  3. Volvemos al repositorio local, nos aseguramos de estar dentro del proyecto que vamos a subir a GitHub
+  4. Indicamos a Git que vamos a crear un origen remoto de nuestros archivos: git remote add origin <URL que copiamos de GitHub>
+      Nota:
+      git remote: Nos muestra las conexiones remotas creadas.
+      git remote -v: Nos muestra si ya podemos hacer push y fetch
+  5. git pull origin master --allow-unrelated-histories: A la primera vez, tenemos que traer lo que se generó por defecto al crear el repositorio en GitHub, ya que si no lo hacemos, 
+    nos da error. (Esto no trae el archivo README que se genera en GitHub a Git)
+  6. git push origin <nombre de rama a enviar, por lo general "master">: Enviamos nuestros archivos del repositorio local a GitHub
+
+  UTILIZANDO SSH  
+
+  Notas: 
+  + Debemos tener en cuenta primero que el mail que se configuró en Git, sea el mismo que utilizamos en GitHub.
+    En el caso de que sean diferentes debes cambiarlo con el siguiente comando: git config --global user.email "mail".
+  + Las llaves SSH, no se generan por proyecto, se generan por persona, entonces hay que crearla en una carpeta principal.
+  2. Creamos una llave SSH en Git, de preferencia ubicados en la carpeta principal, no dentro del un proyecto: 
+     ssh-keygen -t rsa -b 4096 -C "jdavid.rodriguez.e@gmail.com"
+     primero te va a pedir si quieres cambiar la ubicación donde alojará la contraseña (la dejamos en esa mmisma ruta)
+     luego te pide confirmar una contraseña (ya que es un curso, se dejó en blanco.)
+  3. Vamos a la ruta donde se guardó la contraseña y encontramos 2 archivos: id_rsa (llave privada) y id_rsa.pub (llave publica)
+  4. Antes de seguir, debemos confirmar el servicio de llaves SSH este activo en el SO, esto lo podemos verificar utilizando el siguiente
+     comando en consola:  eval $(ssh-agent -s)
+     como resultado nos da: Agent pid 1318 (el numero cambia)
+     así verificamos que todo esta ok.
+  5. En Git debemos añadir la llave creada (privada), utilizamos el siguinte comando:
+     ssh-add <ruta llave privada>
+     ejemplo: ssh-add /c/Users/Juanro/.ssh/id_rsa
+  6. Copiamos lo que hay dentro de la llave publica, y vamos a GitHub, damos clic en "settings", luego en "SSH and GPG Keys",
+     damos clic en "New SSH Key", le podemos un titulo y pegamos la llave.
+  7. Vamos a "clone or download" y copiamos la URL de SSH
+  8. Vamos a Git, dentro del repositorio a subir, e ingresamos el siguiente comando:
+     git remote add origin <URL que copiamos de GitHub>
+     OJO
+     Como ya habiamos creado una conexión remota con HTTPS, debemos modificar esa conexión para que solo usemos SSH (ya que es mas segura)
+     git remote set-url origin <URL que copiamos de GitHub SSH>
+
+     podemos verificar usando el comando: git remote -v
+     primero hacemos pull y luego probramos haciendo cambios, hacemos commits y utilizamos push
+
+NOTA: Debemos tener en cuenta que solo enviamos la rama "master", para tener registro de todo, tambien debemos enviar las otras ramas que tengamos.
+
+TAGS (VERSIONES)
+
+* git tag -a <version que le vamos a dar> -m "mensaje" <Hash del commit donde se va a agregar la versión>
+   ejemplo: git tag -a V0.1 -m "Primera versión del curso" ae0f5a1
+* git tag: Vemos todos los tags que tenemos
+* git show-ref --tags: Vemos a que Hash esta vinculado el tag.
+
+* Una vez creado un tag, es importante tambien enviarlo a GitHub, primero hacemos pull para traer cambios que existan allá, y luego
+   enviamos el tag con el siguinte comando: git push origin --tags
+
+* git tag -d <nombre del tag>: Para borrar un tag en Git
+   Para que tambien se borre en GitHub, luego aplicamos este comando: git push origin :refs/tags/<nombre del tag>
+
+GITK: Nos despliega un software con un resumen de todo, mucho mas visual
+
+Cuando haceos Fork a un proyecto, tenemos la desventaja de que ese proyecto se actualice y queda desactualizada la versión que trajimos, 
+para esto podemos hacer un pull request desde GitHub, o desde Git ejecutamos los siguientes comandos:
+1. git remote <nombre_conexion> <Url del proyecto al que se le hizo fork>
+   ejemplo git remote upstream git@github.com:Juarod01/js2018.git
+2. git pull upstream master: Para traer los cambios que quedaron en la conexión nueva a master, hacemos un commit para fusionar y hacemos push a GitHub
+
+GIT IGNORE
+   No todos los archivos que agregas a un proyecto deberían ir a un repositorio, por ejemplo cuando tienes un archivo donde están tus contraseñas 
+   que comúnmente tienen la extensión .env o cuando te estás conectando a una base de datos; son archivos que nadie debe ver.
+
+   Se debe crear en la raiz del repositorio un archivo llamado .gitignore
+   Y en su contenido, deben ir los archivo que no deben guardarse en el repositorio, por ejemplo *.jpg (indica, todos los archivos .jpg)
+
+Un editor online para editar el archivo README
+https://pandao.github.io/editor.md/en.html
+
+Git rebase
+   Para mover toda una rama y añadirla a "master" de la siguiente manera:
+      * git rebase master.
+      OJO: Primero debemos ubicarnos en la rama que queremos mover y ahí ejecutamos el comando, luego vamos a "master" y ejecutamos el mismo
+         comando, pero apuntando a esa rama. La rama se añade a master y se elimina, desaparece. (git branch -D "nombre_rama")
+
+Git stash 
+   Al ejecutar ese comando, me guarda los cambios recientemente realizados en memoria, luego puedo ejecutar 
+   git stash branch <nombre_rama_nueva>: Me lleva esos cambios a una nueva rama, para trabajarlos ahí.
+
+Git Cherry-pick
+   Me trae un commit de otra rama, ejemplo, puedo traer lo que guardé en un commit viejo de una rama X, a la rama "master".
+   Para esto debo copiar el Hash del commit de la otra rama, ir a master (o a la rama donde lo necesito) y ejecutar el comando:
+   * git cherry-pick <Hash>
+   OJO: Cuando en un futuro vayas a hacer merge a ambas ramas, va a haber conflicto por ese commit, solo debemos aceptar cualquiera de los dos.
+
+CASOS DE EMERGENCIA
+
+* git commit --amend: Si recien hice un commit, y por error se me olvidó realizar otro cambio que debía ir ahí, hago lo siguiente:
+      1. Voy y realizo el cambio faltante
+      2. le realiza git add <archivo del cambio>
+      3. Ahora si ejecuto el comando git commit --amend
+      Esto fusionará el ultimo cambio con el ultimo commit. (No genera uno nuevo)
+* git reflog: Me trae toda la historia, un poco mas poderoso que git log.
+      con git log, ya no me aparece lo que haya borrado con git reset, en cambio, con git reflog, lo trae todo.
+* git reset <Hash> --hard: Volver al commit indicado y borra los commits que estan despues del indicado.
+* git reset <Hash> --soft: Vuelve al commit indicado, pero en el staiging se mantienen los cambios actuales para un posterior commit.
+
+
+* git grep <palabra a buscar>: para buscar en los archivos
+   git grep -n <palabra a buscar>: Trae archivo y linea donde esta la palabra.
+   git grep -c <palabra a buscar>: Trae la cantidad de veces que esta la palabra en cada archivo encontrado.
+* git log -S <palabra a buscar> = para buscar entre los commits hechos en el repositorio
+
+* git blame -c <nombre_archivo>: Nos muestra linea por linea, que usuario la hizo. O quien la modificó por ultima vez
+
+* git config --global alias.<nombre_alias_nuevo> "<comando>": con esto creas un alias de un comando y queda guardado en Git
+   ejemplo: git config --global alias.stats "shortlog -sn --all --no-merges"
